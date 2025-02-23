@@ -19,6 +19,7 @@ public static class RegisterSubscriptionMapper
     {
         return new ResponseRegisterSubscriptionJson
         {
+            Id = subscription.Id,
             Name = subscription.Name,
             Email = subscription.Email
         };
