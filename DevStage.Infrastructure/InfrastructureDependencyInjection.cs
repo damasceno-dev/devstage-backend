@@ -17,6 +17,7 @@ public static class InfrastructureDependencyInjection
     private static void AddRepositories(IServiceCollection services)
     {
         services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
+        services.AddScoped<IInviteLinkRepository, InviteRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
     }
 

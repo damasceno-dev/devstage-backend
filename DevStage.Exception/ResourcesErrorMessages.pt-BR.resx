@@ -33,4 +33,7 @@
     <data name="UnkownError" xml:space="preserve">
         <value>Erro desconhecido</value>
     </data>
+    <data name="SubscriptionNotFound" xml:space="preserve">
+        <value>Inscrição não encontrada</value>
+    </data>
 </root>

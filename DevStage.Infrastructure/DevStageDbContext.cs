@@ -6,4 +6,5 @@ namespace DevStage.Infrastructure;
 public class DevStageDbContext(DbContextOptions options) : DbContext(options)
 {
     public DbSet<Subscription> Subscriptions { get; set; }
+    public DbSet<Invite> Invites { get; set; }
 }

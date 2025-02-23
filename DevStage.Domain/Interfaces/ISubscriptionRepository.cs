@@ -6,4 +6,5 @@ public interface ISubscriptionRepository
 {
     Task Register(Subscription subscription);
     Task<bool> VerifyIfEmailAlreadyExists(string email);
+    Task<bool> VerifyIfIdAlreadyExists(Guid id);
 }

@@ -74,5 +74,11 @@ namespace DevStage.Exception {
                 return ResourceManager.GetString("UnkownError", resourceCulture);
             }
         }
+        
+        public static string SubscriptionNotFound {
+            get {
+                return ResourceManager.GetString("SubscriptionNotFound", resourceCulture);
+            }
+        }
     }
 }

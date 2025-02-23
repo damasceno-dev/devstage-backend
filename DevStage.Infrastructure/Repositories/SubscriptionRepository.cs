@@ -15,4 +15,9 @@ public class SubscriptionRepository(DevStageDbContext dbContext) : ISubscription
     {
         return await dbContext.Subscriptions.AnyAsync(s => s.Email.ToLower() == email.ToLower());
     }
+
+    public async Task<bool> VerifyIfIdAlreadyExists(Guid id)
+    {
+        return await dbContext.Subscriptions.AnyAsync(s => s.Id == id);
+    }
 }
