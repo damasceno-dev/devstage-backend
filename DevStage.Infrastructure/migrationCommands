@@ -1,0 +1,2 @@
+dotnet ef migrations add ##MigrationNameHere## --project DevStage.Infrastructure --startup-project DevStage.API
+dotnet ef database update --project DevStage.Infrastructure --startup-project DevStage.API
