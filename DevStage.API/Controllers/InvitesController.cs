@@ -24,6 +24,7 @@ namespace DevStage.API.Controllers
         [Route("/{subscriberId}/totalInvites")]
         [EndpointDescription("Get total invites for the subscriber")]
         [ProducesResponseType(typeof(ResponseSusbcriberTotalInvites), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetTotalInvites([FromRoute] Guid subscriberId, [FromServices] GetTotalInvitesUseCase useCase)
         {
             var totalInvites = await useCase.Execute(subscriberId);

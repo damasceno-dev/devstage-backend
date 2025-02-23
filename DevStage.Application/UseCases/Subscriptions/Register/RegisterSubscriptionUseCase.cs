@@ -31,6 +31,15 @@ public class RegisterSubscriptionUseCase(ISubscriptionRepository subscriptionRep
         {
             throw new ConflictException(ResourcesErrorMessages.EmailAlreadyExists);
         }
-        
+
+        if (request.ReferredId is not null)
+        {
+            var referredIdExists = await subscriptionRepository.VerifyIfIdAlreadyExists(request.ReferredId.Value);
+            if (referredIdExists is false)
+            {
+                throw new NotFoundException(ResourcesErrorMessages.SubscriptionRefferralIdNotFound);
+            }
+        }
+
     }
 }

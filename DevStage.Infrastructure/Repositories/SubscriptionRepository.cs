@@ -20,4 +20,9 @@ public class SubscriptionRepository(DevStageDbContext dbContext) : ISubscription
     {
         return await dbContext.Subscriptions.AnyAsync(s => s.Id == id);
     }
+
+    public async Task<int> GetTotalReferralSubscription(Guid subscriberId)
+    {
+        return await dbContext.Subscriptions.CountAsync(subscription => subscription.ReferredId == subscriberId);
+    }
 }

@@ -80,5 +80,11 @@ namespace DevStage.Exception {
                 return ResourceManager.GetString("SubscriptionNotFound", resourceCulture);
             }
         }
+        
+        public static string SubscriptionRefferralIdNotFound {
+            get {
+                return ResourceManager.GetString("SubscriptionRefferralIdNotFound", resourceCulture);
+            }
+        }
     }
 }

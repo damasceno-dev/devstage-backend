@@ -36,4 +36,7 @@
     <data name="SubscriptionNotFound" xml:space="preserve">
         <value>Subscription not found</value>
     </data>
+    <data name="SubscriptionRefferralIdNotFound" xml:space="preserve">
+        <value>Refferral subscription not found</value>
+    </data>
 </root>

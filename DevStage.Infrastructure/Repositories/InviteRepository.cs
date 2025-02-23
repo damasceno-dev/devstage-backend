@@ -14,6 +14,5 @@ public class InviteRepository(DevStageDbContext dbContext) : IInviteLinkReposito
     public async Task<int> GetTotalInvites(Guid subscriberId)
     {
         return await dbContext.Invites.CountAsync(invite => invite.SubscriberId == subscriberId);
-
     }
 }

@@ -11,4 +11,6 @@ public class Subscription : EntityBase
     
     [MaxLength(50)]
     public string Email { get; set; } = string.Empty;
+    
+    public Guid? ReferredId { get; set; }
 }

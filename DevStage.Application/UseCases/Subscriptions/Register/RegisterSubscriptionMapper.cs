@@ -11,7 +11,8 @@ public static class RegisterSubscriptionMapper
         return new Subscription
         {
             Name = request.Name,
-            Email = request.Email
+            Email = request.Email,
+            ReferredId = request.ReferredId
         };
     }
 
@@ -21,7 +22,8 @@ public static class RegisterSubscriptionMapper
         {
             Id = subscription.Id,
             Name = subscription.Name,
-            Email = subscription.Email
+            Email = subscription.Email,
+            ReferredId = subscription.ReferredId
         };
     }
 }
