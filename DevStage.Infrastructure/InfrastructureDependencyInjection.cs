@@ -23,7 +23,6 @@ public static class InfrastructureDependencyInjection
     private static void AddDbContext(IServiceCollection services, IConfiguration configuration)
     {
         var connectionString = configuration.GetConnectionString("DefaultConnection");
-        Console.WriteLine(connectionString);
         if (connectionString is null)
             throw new ArgumentException("Invalid connection string");
 

@@ -1,7 +1,9 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace DevStage.Domain.Entities;
 
+[Index(nameof(Email), IsUnique = true)]
 public class Subscription : EntityBase
 {
     [MaxLength(50)]
