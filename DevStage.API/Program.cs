@@ -19,6 +19,9 @@ builder.Services.AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 
+await app.Services.MigrateDatabaseAsync();
+await app.Services.SeedDatabaseAsync();
+
 app.UseCors("AllowAll");
 app.UseSwagger();
 app.UseSwaggerUI();
@@ -29,4 +32,4 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run();
+await app.RunAsync();
