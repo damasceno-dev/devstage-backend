@@ -8,7 +8,7 @@ public class GetTotalInvitesClicksUseCase(IInviteLinkRepository inviteLinkReposi
 {
     public async Task<ResponseSusbcriberTotalInvites> Execute(Guid subscriberId)
     {
-        var idExists = await subscriptionRepository.VerifyIfIdAlreadyExists(subscriberId);
+        var idExists = await subscriptionRepository.VerifyIfIdExists(subscriberId);
         if (idExists is false)
         {
             throw new NotFoundException(ResourcesErrorMessages.SubscriptionNotFound);

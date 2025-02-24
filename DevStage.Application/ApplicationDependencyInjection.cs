@@ -2,6 +2,7 @@ using DevStage.Application.Services;
 using DevStage.Application.UseCases.Invites.AccessInvite;
 using DevStage.Application.UseCases.Invites.GetTotalInvites;
 using DevStage.Application.UseCases.Subscriptions.GetTotalSubscriptions;
+using DevStage.Application.UseCases.Subscriptions.Rank;
 using DevStage.Application.UseCases.Subscriptions.Register;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,5 +33,7 @@ public static class ApplicationDependencyInjection
         services.AddScoped<GetTotalSubscriptionsUseCase>();
         services.AddScoped<AccessInviteLinkUseCase>();
         services.AddScoped<GetTotalInvitesClicksUseCase>();
+        services.AddScoped<GetSubscriberRankingPositionUseCase>();
+        services.AddScoped<GetRankUseCase>();
     }
 }

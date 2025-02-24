@@ -8,7 +8,7 @@ public class GetTotalSubscriptionsUseCase(ISubscriptionRepository subscriptionRe
 {
     public async Task<ResponseSubscriberTotalSubscriptions> Execute(Guid subscriberId)
     {
-        var idExists = await subscriptionRepository.VerifyIfIdAlreadyExists(subscriberId);
+        var idExists = await subscriptionRepository.VerifyIfIdExists(subscriberId);
         if (idExists is false)
         {
             throw new NotFoundException(ResourcesErrorMessages.SubscriptionNotFound);

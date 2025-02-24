@@ -34,7 +34,7 @@ public class RegisterSubscriptionUseCase(ISubscriptionRepository subscriptionRep
 
         if (request.ReferredId is not null)
         {
-            var referredIdExists = await subscriptionRepository.VerifyIfIdAlreadyExists(request.ReferredId.Value);
+            var referredIdExists = await subscriptionRepository.VerifyIfIdExists(request.ReferredId.Value);
             if (referredIdExists is false)
             {
                 throw new NotFoundException(ResourcesErrorMessages.SubscriptionRefferralIdNotFound);

@@ -1,3 +1,4 @@
+using DevStage.Domain.Dtos;
 using DevStage.Domain.Entities;
 using DevStage.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -16,7 +17,7 @@ public class SubscriptionRepository(DevStageDbContext dbContext) : ISubscription
         return await dbContext.Subscriptions.AnyAsync(s => s.Email.ToLower() == email.ToLower());
     }
 
-    public async Task<bool> VerifyIfIdAlreadyExists(Guid id)
+    public async Task<bool> VerifyIfIdExists(Guid id)
     {
         return await dbContext.Subscriptions.AnyAsync(s => s.Id == id);
     }
@@ -25,4 +26,38 @@ public class SubscriptionRepository(DevStageDbContext dbContext) : ISubscription
     {
         return await dbContext.Subscriptions.CountAsync(subscription => subscription.ReferredId == subscriberId);
     }
+
+    public async Task<List<RankDto>> GetRank()
+    {
+        var subscriptions = await dbContext.Subscriptions.ToListAsync();
+        
+        var referralCounts = subscriptions
+            .Where(s => s.ReferredId is not null)
+            .GroupBy(s => s.ReferredId!.Value)
+            .ToDictionary(g => g.Key, g => g.Count());
+
+        // Only include subscribers that have at least one referral
+        var rankList = referralCounts
+            .Select(kvp => new RankDto(kvp.Key, kvp.Value))
+            .OrderByDescending(dto => dto.Position) // Order by referral count (descending)
+            .ToList();
+
+        // Recalculate the ranking positions (1-based) based on the order.
+        for (int i = 0; i < rankList.Count; i++)
+        {
+            rankList[i] = new RankDto(rankList[i].Id, i + 1);
+        }
+
+        return rankList;
+    }
+
+    public async Task<RankDto> GetReferralRank(Guid subscriberId)
+    {
+        var rankList = await GetRank();
+            
+        var rankDto = rankList.FirstOrDefault(r => r.Id == subscriberId);
+
+        return rankDto ?? new RankDto(subscriberId, 0);
+    }
 }
+

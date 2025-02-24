@@ -1,8 +1,8 @@
 using DevStage.Application.UseCases.Subscriptions.GetTotalSubscriptions;
+using DevStage.Application.UseCases.Subscriptions.Rank;
 using DevStage.Application.UseCases.Subscriptions.Register;
 using DevStage.Communication.Requests;
 using DevStage.Communication.Responses;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevStage.API.Controllers
@@ -32,5 +32,28 @@ namespace DevStage.API.Controllers
             var totalSubscriptions = await useCase.Execute(subscriberId);
             return Ok(totalSubscriptions);
         }
+        
+        [HttpGet]
+        [Route("/{subscriberId}/getRankingPosition")]
+        [EndpointDescription("Get total converted invites into subscription for the subscriber")]
+        [ProducesResponseType(typeof(ResponseSubscriberRankingPosition), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetRankingPosition([FromRoute] Guid subscriberId, [FromServices] GetSubscriberRankingPositionUseCase useCase)
+        {
+            var rankingPosition = await useCase.Execute(subscriberId);
+            return Ok(rankingPosition);
+        }
+        
+        [HttpGet]
+        [Route("/getRank")]
+        [EndpointDescription("Get total converted invites into subscription for the subscriber")]
+        [ProducesResponseType(typeof(ResponseRank), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetRank([FromServices] GetRankUseCase useCase)
+        {
+            var rank = await useCase.Execute();
+            return Ok(rank);
+        }
+        
     }
 }
