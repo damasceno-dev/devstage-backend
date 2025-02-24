@@ -31,6 +31,6 @@ public static class ApplicationDependencyInjection
         services.AddScoped<RegisterSubscriptionUseCase>();
         services.AddScoped<GetTotalSubscriptionsUseCase>();
         services.AddScoped<AccessInviteLinkUseCase>();
-        services.AddScoped<GetTotalInvitesUseCase>();
+        services.AddScoped<GetTotalInvitesClicksUseCase>();
     }
 }

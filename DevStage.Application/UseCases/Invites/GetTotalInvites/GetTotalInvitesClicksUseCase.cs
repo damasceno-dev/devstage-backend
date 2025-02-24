@@ -4,7 +4,7 @@ using DevStage.Exception;
 
 namespace DevStage.Application.UseCases.Invites.GetTotalInvites;
 
-public class GetTotalInvitesUseCase(IInviteLinkRepository inviteLinkRepository, ISubscriptionRepository subscriptionRepository)
+public class GetTotalInvitesClicksUseCase(IInviteLinkRepository inviteLinkRepository, ISubscriptionRepository subscriptionRepository)
 {
     public async Task<ResponseSusbcriberTotalInvites> Execute(Guid subscriberId)
     {
@@ -13,7 +13,7 @@ public class GetTotalInvitesUseCase(IInviteLinkRepository inviteLinkRepository, 
         {
             throw new NotFoundException(ResourcesErrorMessages.SubscriptionNotFound);
         }
-        var totalInvites =await inviteLinkRepository.GetTotalInvites(subscriberId);
+        var totalInvites =await inviteLinkRepository.GetTotalInvitesClicks(subscriberId);
         return totalInvites.ToResponse();
     }
 }
