@@ -10,13 +10,13 @@ namespace DevStage.Application.UseCases.Subscriptions.Rank
     {
         public static ResponseRank ToResponse(this List<RankDto> rankDtos)
         {
-            var rank = rankDtos.Select(dto => new ResponseSubscriberRankingPosition {SubscriberId = dto.Id, Position = dto.Position }).ToList();
+            var rank = rankDtos.Select(dto => new ResponseSubscriberRankingPosition {SubscriberId = dto.Id, Position = dto.Position, Score = dto.Score}).ToList();
             return new ResponseRank {Ranking = rank};
         }
         
         public static ResponseSubscriberRankingPosition ToResponse(this RankDto rankDto)
         {
-            return new ResponseSubscriberRankingPosition {SubscriberId = rankDto.Id, Position = rankDto.Position};
+            return new ResponseSubscriberRankingPosition {SubscriberId = rankDto.Id, Position = rankDto.Position, Score = rankDto.Score};
         }
     }
 }

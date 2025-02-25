@@ -4,4 +4,5 @@ public class ResponseSubscriberRankingPosition
 {
     public Guid SubscriberId { get; set; }
     public int Position { get; set; }
+    public int Score { get; set; }
 }

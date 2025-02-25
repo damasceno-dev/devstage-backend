@@ -1,3 +1,3 @@
 namespace DevStage.Domain.Dtos;
 
-public record RankDto(Guid Id, int Position);
+public record RankDto(Guid Id, int Position, int Score);

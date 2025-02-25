@@ -36,18 +36,18 @@ public class SubscriptionRepository(DevStageDbContext dbContext) : ISubscription
             .GroupBy(s => s.ReferredId!.Value)
             .ToDictionary(g => g.Key, g => g.Count());
 
-        // Only include subscribers that have at least one referral
+        // Create an initial list containing the referral count as the score
         var rankList = referralCounts
-            .Select(kvp => new RankDto(kvp.Key, kvp.Value))
-            .OrderByDescending(dto => dto.Position) // Order by referral count (descending)
+            .Select(kvp => new RankDto(kvp.Key, 0, kvp.Value))
+            .OrderByDescending(dto => dto.Score) // Order descending by score
             .ToList();
 
-        // Recalculate the ranking positions (1-based) based on the order.
-        for (int i = 0; i < rankList.Count; i++)
+        // Assign ranking positions (1-based) based on the score order.
+        for (var i = 0; i < rankList.Count; i++)
         {
-            rankList[i] = new RankDto(rankList[i].Id, i + 1);
+            rankList[i] = new RankDto(rankList[i].Id, i + 1, rankList[i].Score);
         }
-
+        
         return rankList;
     }
 
@@ -57,7 +57,7 @@ public class SubscriptionRepository(DevStageDbContext dbContext) : ISubscription
             
         var rankDto = rankList.FirstOrDefault(r => r.Id == subscriberId);
 
-        return rankDto ?? new RankDto(subscriberId, 0);
+        return rankDto ?? new RankDto(subscriberId, 0, 0);
     }
 }
 
