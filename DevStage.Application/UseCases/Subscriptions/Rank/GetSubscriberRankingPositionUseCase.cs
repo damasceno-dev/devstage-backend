@@ -6,7 +6,7 @@ namespace DevStage.Application.UseCases.Subscriptions.Rank;
 
 public class GetSubscriberRankingPositionUseCase(ISubscriptionRepository subscriptionRepository)
 {
-    public async Task<ResponseSubscriberRankingPosition> Execute(Guid subscriberId)
+    public async Task<ResponseSubscriberRankingPositionJson> Execute(Guid subscriberId)
     {
         var idExists = await subscriptionRepository.VerifyIfIdExists(subscriberId);
         if (idExists is false)

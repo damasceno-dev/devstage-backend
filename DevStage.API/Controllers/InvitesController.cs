@@ -10,7 +10,7 @@ namespace DevStage.API.Controllers
     public class InvitesController : ControllerBase
     {
         [HttpGet]
-        [Route("/{subscriberId}")]
+        [Route("/{subscriberId}/invite")]
         [EndpointDescription("Access invite link and redirects user to the event")]
         [ProducesResponseType(typeof(string), StatusCodes.Status302Found)]
         [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
@@ -23,7 +23,7 @@ namespace DevStage.API.Controllers
         [HttpGet]
         [Route("/{subscriberId}/totalInvitesClicks")]
         [EndpointDescription("Get total invites clicks for the subscriber")]
-        [ProducesResponseType(typeof(ResponseSusbcriberTotalInvites), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseSusbcriberTotalInvitesJson), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetTotalInvitesClicks([FromRoute] Guid subscriberId, [FromServices] GetTotalInvitesClicksUseCase useCase)
         {

@@ -36,7 +36,7 @@ namespace DevStage.API.Controllers
         [HttpGet]
         [Route("/{subscriberId}/getRankingPosition")]
         [EndpointDescription("Get total converted invites into subscription for the subscriber")]
-        [ProducesResponseType(typeof(ResponseSubscriberRankingPosition), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseSubscriberRankingPositionJson), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetRankingPosition([FromRoute] Guid subscriberId, [FromServices] GetSubscriberRankingPositionUseCase useCase)
         {

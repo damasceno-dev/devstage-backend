@@ -1,6 +1,6 @@
 namespace DevStage.Communication.Responses;
 
-public class ResponseSusbcriberTotalInvites
+public class ResponseSusbcriberTotalInvitesJson
 {
     public int TotalInvites { get; set; }
 }

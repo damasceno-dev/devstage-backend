@@ -12,6 +12,6 @@ public class AccessInviteLinkUseCase(IInviteLinkRepository inviteLinkRepository,
         await inviteLinkRepository.RegisterInvite(newInvite);
         await unitOfWork.Commit();
         
-        return url.WebUrl;
+        return $"{url.WebUrl}/?referrer={subscriberId}";
     }
 }

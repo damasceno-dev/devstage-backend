@@ -1,6 +1,6 @@
 namespace DevStage.Communication.Responses;
 
-public class ResponseSubscriberRankingPosition
+public class ResponseSubscriberRankingPositionJson
 {
     public Guid SubscriberId { get; set; }
     public int Position { get; set; }

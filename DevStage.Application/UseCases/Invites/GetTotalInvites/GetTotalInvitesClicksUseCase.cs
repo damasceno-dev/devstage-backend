@@ -6,7 +6,7 @@ namespace DevStage.Application.UseCases.Invites.GetTotalInvites;
 
 public class GetTotalInvitesClicksUseCase(IInviteLinkRepository inviteLinkRepository, ISubscriptionRepository subscriptionRepository)
 {
-    public async Task<ResponseSusbcriberTotalInvites> Execute(Guid subscriberId)
+    public async Task<ResponseSusbcriberTotalInvitesJson> Execute(Guid subscriberId)
     {
         var idExists = await subscriptionRepository.VerifyIfIdExists(subscriberId);
         if (idExists is false)
