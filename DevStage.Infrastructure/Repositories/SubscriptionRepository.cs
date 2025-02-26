@@ -27,29 +27,26 @@ public class SubscriptionRepository(DevStageDbContext dbContext) : ISubscription
         return await dbContext.Subscriptions.CountAsync(subscription => subscription.ReferredId == subscriberId);
     }
 
-    public async Task<List<RankDto>> GetRank()
-    {
-        var subscriptions = await dbContext.Subscriptions.ToListAsync();
+    public async Task<List<RankDto>> GetRank() { 
+        var subscriptions = await dbContext.Subscriptions.ToListAsync(); 
         
-        var referralCounts = subscriptions
-            .Where(s => s.ReferredId is not null)
-            .GroupBy(s => s.ReferredId!.Value)
+        // Calculate referral counts: For each subscriber, count how many times their Id appears as a referral.
+        var referralCounts = subscriptions.Where(s => s.ReferredId != null) 
+            .GroupBy(s => s.ReferredId!.Value) 
             .ToDictionary(g => g.Key, g => g.Count());
-
-        // Create an initial list containing the referral count as the score
-        var rankList = referralCounts
-            .Select(kvp => new RankDto(kvp.Key, 0, kvp.Value))
-            .OrderByDescending(dto => dto.Score) // Order descending by score
-            .ToList();
-
-        // Assign ranking positions (1-based) based on the score order.
-        for (var i = 0; i < rankList.Count; i++)
-        {
-            rankList[i] = new RankDto(rankList[i].Id, i + 1, rankList[i].Score);
-        }
         
-        return rankList;
+        var combinedList = subscriptions.Select(s => new { s.Id, s.CreatedOn, Score = referralCounts.GetValueOrDefault(s.Id, 0) }) 
+        // Order first by descending score and then by the creation date (earlier created come first).
+        .OrderByDescending(x => x.Score).ThenBy(x => x.CreatedOn).ToList();
+        
+        var rankList = new List<RankDto>();
+        for (var i = 0; i < combinedList.Count; i++)
+        {
+            rankList.Add(new RankDto(combinedList[i].Id, i + 1, combinedList[i].Score));
+        } 
+        return rankList; 
     }
+
 
     public async Task<RankDto> GetReferralRank(Guid subscriberId)
     {
