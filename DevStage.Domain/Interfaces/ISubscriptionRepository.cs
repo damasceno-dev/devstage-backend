@@ -11,4 +11,5 @@ public interface ISubscriptionRepository
     Task<int> GetTotalReferralSubscription(Guid subscriberId);
     Task<RankDto> GetReferralRank(Guid subscriberId);
     Task<List<RankDto>> GetRank();
+    Task<List<RankDto>> GetTopThreeRank();
 }

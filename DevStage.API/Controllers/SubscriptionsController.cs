@@ -46,10 +46,19 @@ namespace DevStage.API.Controllers
         
         [HttpGet]
         [Route("/getRank")]
-        [EndpointDescription("Get total converted invites into subscription for the subscriber")]
+        [EndpointDescription("Get the total rank of the subscribers")]
         [ProducesResponseType(typeof(ResponseRank), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetRank([FromServices] GetRankUseCase useCase)
+        {
+            var rank = await useCase.Execute();
+            return Ok(rank);
+        }
+        
+        [HttpGet]
+        [Route("/getTopThreeRank")]
+        [EndpointDescription("Get top three rank of the subscribers")]
+        [ProducesResponseType(typeof(ResponseRank), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetTopThreeRank([FromServices] GetTopThreeRankUseCase useCase)
         {
             var rank = await useCase.Execute();
             return Ok(rank);

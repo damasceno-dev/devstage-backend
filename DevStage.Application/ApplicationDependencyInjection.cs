@@ -35,5 +35,6 @@ public static class ApplicationDependencyInjection
         services.AddScoped<GetTotalInvitesClicksUseCase>();
         services.AddScoped<GetSubscriberRankingPositionUseCase>();
         services.AddScoped<GetRankUseCase>();
+        services.AddScoped<GetTopThreeRankUseCase>();
     }
 }

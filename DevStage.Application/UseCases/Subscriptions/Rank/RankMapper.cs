@@ -10,7 +10,7 @@ namespace DevStage.Application.UseCases.Subscriptions.Rank
     {
         public static ResponseRank ToResponse(this List<RankDto> rankDtos)
         {
-            var rank = rankDtos.Select(dto => new ResponseSubscriberRankingPositionJson {SubscriberId = dto.Id, Position = dto.Position, Score = dto.Score}).ToList();
+            var rank = rankDtos.Select(dto => new ResponseSubscriberRankingPositionJson {SubscriberId = dto.Id, Name = dto.Name, Position = dto.Position, Score = dto.Score}).ToList();
             return new ResponseRank {Ranking = rank};
         }
         

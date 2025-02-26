@@ -1,3 +1,4 @@
+using Bogus.DataSets;
 using DevStage.Domain.Dtos;
 using DevStage.Domain.Entities;
 using DevStage.Domain.Interfaces;
@@ -35,26 +36,46 @@ public class SubscriptionRepository(DevStageDbContext dbContext) : ISubscription
             .GroupBy(s => s.ReferredId!.Value) 
             .ToDictionary(g => g.Key, g => g.Count());
         
-        var combinedList = subscriptions.Select(s => new { s.Id, s.CreatedOn, Score = referralCounts.GetValueOrDefault(s.Id, 0) }) 
+        var combinedList = subscriptions.Select(s => new { s.Id, s.Name, s.CreatedOn, Score = referralCounts.GetValueOrDefault(s.Id, 0) }) 
         // Order first by descending score and then by the creation date (earlier created come first).
         .OrderByDescending(x => x.Score).ThenBy(x => x.CreatedOn).ToList();
         
         var rankList = new List<RankDto>();
         for (var i = 0; i < combinedList.Count; i++)
         {
-            rankList.Add(new RankDto(combinedList[i].Id, i + 1, combinedList[i].Score));
+            rankList.Add(new RankDto(combinedList[i].Id,Name: combinedList[i].Name, i + 1, combinedList[i].Score));
         } 
         return rankList; 
     }
-
-
+    
     public async Task<RankDto> GetReferralRank(Guid subscriberId)
     {
         var rankList = await GetRank();
-            
-        var rankDto = rankList.FirstOrDefault(r => r.Id == subscriberId);
-
-        return rankDto ?? new RankDto(subscriberId, 0, 0);
+        
+        return rankList.First(r => r.Id == subscriberId);
+    }
+    
+    public async Task<List<RankDto>> GetTopThreeRank() { 
+        var subscriptions = await dbContext.Subscriptions.ToListAsync(); 
+        
+        var referralCounts = subscriptions.Where(s => s.ReferredId != null)
+            .GroupBy(s => s.ReferredId!.Value)
+            .ToDictionary(g => g.Key, g => g.Count());
+        
+        var combinedList = subscriptions.Select(s => new { s.Id, s.Name, s.CreatedOn, Score = referralCounts.GetValueOrDefault(s.Id, 0) })
+                            .OrderByDescending(x => x.Score) 
+                            .ThenBy(x => x.CreatedOn) 
+                            .Take(3)
+                            .ToList();
+        
+        var topRankList = new List<RankDto>();
+        
+        for (var i = 0; i < combinedList.Count; i++)
+        {
+            topRankList.Add(new RankDto(combinedList[i].Id,combinedList[i].Name, i + 1, combinedList[i].Score));
+        } 
+        
+        return topRankList; 
     }
 }
 
