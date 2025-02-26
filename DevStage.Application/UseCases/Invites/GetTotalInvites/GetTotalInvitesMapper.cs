@@ -4,9 +4,9 @@ namespace DevStage.Application.UseCases.Invites.GetTotalInvites;
 
 public static class GetTotalInvitesMapper
 {
-    public static ResponseSusbcriberTotalInvitesJson ToResponse(this int totalInvites)
+    public static ResponseSubscriberTotalInvitesJson ToResponse(this int totalInvites)
     {
-        return new ResponseSusbcriberTotalInvitesJson
+        return new ResponseSubscriberTotalInvitesJson
         {
             TotalInvites = totalInvites
         };

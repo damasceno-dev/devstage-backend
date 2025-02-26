@@ -23,7 +23,7 @@ namespace DevStage.API.Controllers
         [HttpGet]
         [Route("/{subscriberId}/totalInvitesClicks")]
         [EndpointDescription("Get total invites clicks for the subscriber")]
-        [ProducesResponseType(typeof(ResponseSusbcriberTotalInvitesJson), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseSubscriberTotalInvitesJson), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetTotalInvitesClicks([FromRoute] Guid subscriberId, [FromServices] GetTotalInvitesClicksUseCase useCase)
         {
