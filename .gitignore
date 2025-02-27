@@ -6,6 +6,7 @@
 .idea/
 appsettings.Development.json
 appsettings.Production.json
+.secrets
 # dotenv files
 .env
 
