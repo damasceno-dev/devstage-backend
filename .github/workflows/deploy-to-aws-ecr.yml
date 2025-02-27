@@ -18,6 +18,17 @@ jobs:
         run: |
           echo "${{ secrets.APPSETTINGS_PRODUCTION_JSON }}" > DevStage.API/appsettings.Production.json
           
+          
+      - name: Create appsettings.Production.json file 
+        run: | 
+          # Decode the Base64-encoded JSON string from secrets to create the configuration file 
+          echo "${{ secrets.APPSETTINGS_PRODUCTION_JSON_B64 }}" | base64 -d > DevStage.API/appsettings.Production.json 
+        
+      - name: Validate JSON configuration 
+        run: | 
+          # Use jq to parse the JSON file; this will error out if the JSON is invalid. 
+          jq . DevStage.API/appsettings.Production.json
+
       - name: Create .secrets file
         run: |
           echo "${{ secrets.ENCODED_SECRETS }}" | base64 -d > .secrets
