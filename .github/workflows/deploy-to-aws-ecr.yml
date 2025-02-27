@@ -35,15 +35,11 @@ jobs:
         id: vars
         run: echo "SHORT_SHA=$(git rev-parse --short=7 HEAD)" >> $GITHUB_ENV
 
-      - name: Debug AWS_REGION
-        run: |
-          echo "AWS_REGION is: '$AWS_REGION'"
-
       - name: Test AWS Login
         run: |
-          aws configure set aws_access_key_id "${{ secrets.AWS_RESOURCES_CREATOR_ACCESS_KEY_ID }}"
-          aws configure set aws_secret_access_key "${{ secrets.AWS_RESOURCES_CREATOR_SECRET_ACCESS_KEY }}"
-          aws configure set region "${{ secrets.AWS_REGION }}"
+          aws configure set aws_access_key_id "${{ env.AWS_RESOURCES_CREATOR_ACCESS_KEY_ID }}"
+          aws configure set aws_secret_access_key "${{ env.AWS_RESOURCES_CREATOR_SECRET_ACCESS_KEY }}"
+          aws configure set region "${{ env.AWS_REGION }}"
           
           aws s3 ls  # Test if AWS CLI can list S3 buckets (checks authentication)
 
