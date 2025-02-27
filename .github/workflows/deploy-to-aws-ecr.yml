@@ -14,6 +14,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Create appsettings.Production.json file
+        run: |
+          echo "${{ secrets.APPSETTINGS_PRODUCTION_JSON }}" > DevStage.API/appsettings.Production.json
+          
       - name: Create .secrets file
         run: |
           echo "${{ secrets.ENCODED_SECRETS }}" | base64 -d > .secrets
