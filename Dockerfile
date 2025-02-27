@@ -8,7 +8,7 @@ COPY ["DevStage.Application/", "DevStage.Application/"]
 COPY ["DevStage.Exception/", "DevStage.Exception/"]
 COPY ["DevStage.Infrastructure/", "DevStage.Infrastructure/"]
 
-WORKDIR /app/
+WORKDIR DevStage.API/
 
 RUN dotnet restore
 RUN dotnet publish -c $BUILD_CONFIGURATION -o /app/out
