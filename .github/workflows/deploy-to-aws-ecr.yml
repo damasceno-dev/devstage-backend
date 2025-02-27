@@ -39,10 +39,6 @@ jobs:
         run: |
           echo "AWS_REGION is: '$AWS_REGION'"
 
-      - name: Debug AWS Credentials
-        run: |
-          aws sts get-caller-identity
-
       - name: Test AWS Login
         run: |
           aws configure set aws_access_key_id "${{ secrets.AWS_RESOURCES_CREATOR_ACCESS_KEY_ID }}"
